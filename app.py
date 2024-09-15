@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from models import db, User
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user_feedback.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '00cb48ff0bb190c58724e6b3834ced90'
 
