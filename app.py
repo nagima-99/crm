@@ -1,6 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import render_template, request, redirect, url_for, flash, session
 from models import app, db, User
 
+@app.route('/')
+def index():
+    return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -11,6 +14,7 @@ def login():
         
         if user and user.check_password(password):
             session['user_id'] = user.id
+            session['username'] = user.username
             session['role'] = user.role
             if user.role == 'manager':
                 return redirect(url_for('manager_dashboard'))
@@ -49,5 +53,5 @@ def logout():
     session.clear()
     return redirect(url_for('login'))
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True, threaded=True)
