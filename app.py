@@ -1,5 +1,13 @@
-from flask import render_template, request, redirect, url_for, flash, session
+from flask import render_template, request, redirect, url_for, flash
 from models import app, db, User
+from flask_login import LoginManager, login_user, current_user, logout_user, login_required
+
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 @app.route('/')
 def index():
@@ -8,14 +16,12 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
+        email = request.form['email']
         password = request.form['password']
-        user = User.query.filter_by(username=username).first()
+        user = User.query.filter_by(email=email).first()
         
         if user and user.check_password(password):
-            session['user_id'] = user.id
-            session['username'] = user.username
-            session['role'] = user.role
+            login_user(user)
             if user.role == 'manager':
                 return redirect(url_for('manager_dashboard'))
             elif user.role == 'teacher':
@@ -28,29 +34,33 @@ def login():
     return render_template('login.html')
 
 @app.route('/manager')
+@login_required
 def manager_dashboard():
-    if 'role' in session and session['role'] == 'manager':
-        return render_template('manager_dashboard.html', username=session['username'])
+    if current_user.role == 'manager':
+        return render_template('manager_dashboard.html', current_user.username)
     else:
         return redirect(url_for('login'))
 
 @app.route('/teacher')
+@login_required
 def teacher_dashboard():
-    if 'role' in session and session['role'] == 'teacher':
-        return render_template('teacher_dashboard.html', username=session['username'])
+    if current_user.role == 'teacher':
+        return render_template('teacher_dashboard.html', current_user.username)
     else:
         return redirect(url_for('login'))
 
 @app.route('/student')
+@login_required
 def student_dashboard():
-    if 'role' in session and session['role'] == 'student':
-        return render_template('student_dashboard.html', username=session['username'])
+    if current_user.role == 'student':
+        return render_template('student_dashboard.html', current_user.username)
     else:
         return redirect(url_for('login'))
 
 @app.route('/logout')
+@login_required
 def logout():
-    session.clear()
+    logout_user()
     return redirect(url_for('login'))
 
 if __name__ == "__main__":
