@@ -6,21 +6,27 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/login.css') }}">
 </head>
 <body>
-    <div class="container">
+    <div class="login-container">
         <div class="login-box">
-            <h2>Вход в личный кабинет</h2>
-            <form method="POST" action="{{ url_for('login') }}">
-                <div class="input-box">
-                    <input type="text" required>
-                    <label>E-mail</label>
+            <div class="login-left">
+                <h2>Вход в личный кабинет</h2>
+                <h1>VIVACRM</h1>
+                <form action="/login" method="POST">
+                    <div class="input-group">
+                        <input type="text" placeholder="E-mail" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" placeholder="Пароль" required>
+                    </div>
+                    <button type="submit" class="sign-in-btn">Войти в кабинет</button>
+                </form>
+            </div>
+            <div class="login-right">
+                <div class="overlay">
+                    <h1>VIVACRM</h1>
+                    <p>Связь преподавателей и студентов - ключ к успешному обучению. VIVACRM помогает управлять учебными процессами, оценками и взаимодействием в образовательной среде.</p>
                 </div>
-                <div class="input-box">
-                    <input type="password" required>
-                    <label>Пароль</label>
-                </div>
-                <button type="submit">Войти в кабинет</button>
-        <div class="image-box">
-            <img src="" alt="Icon">
+            </div>
         </div>
     </div>
 </body>
