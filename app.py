@@ -37,7 +37,23 @@ def login():
 @login_required
 def manager_dashboard():
     if current_user.role == 'manager':
-        return render_template('manager_dashboard.html', current_user.username)
+        return render_template('manager_dashboard.html', username=current_user.username)
+    else:
+        return redirect(url_for('login'))
+    
+@app.route('/manage_courses')
+@login_required
+def manage_courses():
+    if current_user.role == 'manager':
+        return render_template('manage_courses.html', username=current_user.username)
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/manage_groups')
+@login_required
+def manage_groups():
+    if current_user.role == 'manager':
+        return render_template('manage_groups.html', username=current_user.username)
     else:
         return redirect(url_for('login'))
 
@@ -45,7 +61,7 @@ def manager_dashboard():
 @login_required
 def teacher_dashboard():
     if current_user.role == 'teacher':
-        return render_template('teacher_dashboard.html', current_user.username)
+        return render_template('teacher_dashboard.html', username=current_user.username)
     else:
         return redirect(url_for('login'))
 
@@ -53,7 +69,7 @@ def teacher_dashboard():
 @login_required
 def student_dashboard():
     if current_user.role == 'student':
-        return render_template('student_dashboard.html', current_user.username)
+        return render_template('student_dashboard.html', username=current_user.username)
     else:
         return redirect(url_for('login'))
 

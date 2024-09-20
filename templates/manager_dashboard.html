@@ -1,6 +1,15 @@
 {% extends 'base_manager.html' %}
 
+{% block title %}Профиль Менеджера{% endblock %}
+
 {% block content %}
-<h1>Welcome, {{ current_user.username }}!</h1>
-<p>This is your dashboard where you can manage courses, calendars, and groups.</p>
+<h1>Добро пожаловать, {{ current_user.username }}!</h1>
+<p>панель управления</p>
+
+<h2>Информация:</h2>
+<ul>
+    <li><strong>Имя пользователя:</strong> {{ current_user.username }}</li>
+    <li><strong>Email:</strong> {{ current_user.email }}</li>
+    <li><strong>Роль:</strong> {{ current_user.role }}</li>
+</ul>
 {% endblock %}

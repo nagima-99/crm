@@ -2,22 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Manager Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='base_manager.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/base_manager.css') }}">
 </head>
 <body>
-    <div class="container">
-        <nav class="sidebar">
-            <ul>
-                <li><a href="{{ url_for('manager_dashboard') }}">Dashboard</a></li>
-                <li><a href="{{ url_for('courses') }}">Courses</a></li>
-                <li><a href="{{ url_for('groups') }}">Groups</a></li>
-                <li><a href="{{ url_for('logout') }}">Logout</a></li>
-            </ul>
-        </nav>
+    <header>
+        <h1>Добро пожаловать в CRM</h1>
+    </header>
 
-        <div class="main-content">
-        </div>
+    <div class="container">
+        <aside>
+            <h2>Меню</h2>
+            <ul>
+                <li><a href="{{ url_for('manage_courses') }}">Управление курсами</a></li>
+                <li><a href="{{ url_for('manage_groups') }}">Управление группами</a></li>
+            </ul>
+        </aside>
+
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
     </div>
+
+    <footer>
+        <p>&copy; CRM</p>
+    </footer>
 </body>
 </html>
