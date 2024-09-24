@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, jsonify
 from models import app, db, User
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
 
@@ -56,6 +56,25 @@ def manage_groups():
         return render_template('manage_groups.html', username=current_user.username)
     else:
         return redirect(url_for('login'))
+
+@app.route('/manage_schedaule')
+@login_required
+def manage_schedaule():
+    if current_user.role == 'manager':
+        return render_template('manage_schedaule.html', username=current_user.username)
+    else:
+        return redirect(url_for('login'))    
+    
+
+@app.route('/get_events')
+def get_events():
+    events = []
+    events.append({
+        "title": "programming",
+        "start": "2024-09-25",
+        "end": "2024-09-25"
+    })
+    return jsonify(events)
 
 @app.route('/teacher')
 @login_required
