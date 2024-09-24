@@ -56,6 +56,22 @@ def manage_groups():
         return render_template('manage_groups.html', username=current_user.username)
     else:
         return redirect(url_for('login'))
+     
+@app.route('/manage_students')
+@login_required
+def manage_students():
+    if current_user.role == 'manager':
+        return render_template('manage_students.html', username=current_user.username)
+    else:
+        return redirect(url_for('login')) 
+
+@app.route('/manage_teachers')
+@login_required
+def manage_teachers():
+    if current_user.role == 'manager':
+        return render_template('manage_teachers.html', username=current_user.username)
+    else:
+        return redirect(url_for('login'))   
 
 @app.route('/manage_schedaule')
 @login_required
@@ -63,9 +79,8 @@ def manage_schedaule():
     if current_user.role == 'manager':
         return render_template('manage_schedaule.html', username=current_user.username)
     else:
-        return redirect(url_for('login'))    
+        return redirect(url_for('login'))   
     
-
 @app.route('/get_events')
 def get_events():
     events = []
