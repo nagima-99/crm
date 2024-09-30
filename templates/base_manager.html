@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/base_manager.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/manager_dashboard.css') }}">
 </head>
 <body>
     <header>
@@ -13,6 +14,7 @@
         <aside>
             <h2>Меню</h2>
             <ul>
+                <li><a href="{{ url_for('manager_dashboard') }}">Профиль</a></li>
                 <li><a href="{{ url_for('manage_courses') }}">Управление курсами</a></li>
                 <li><a href="{{ url_for('manage_groups') }}">Управление группами</a></li>
                 <li><a href="{{ url_for('manage_students') }}">Управление студентами</a></li>

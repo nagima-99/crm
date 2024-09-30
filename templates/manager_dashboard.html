@@ -3,13 +3,18 @@
 {% block title %}Профиль Менеджера{% endblock %}
 
 {% block content %}
-<h1>Добро пожаловать, {{ current_user.username }}!</h1>
-<p>панель управления</p>
+<div class="profile-container">
+    <div class="header">
+        <img src="https://png.pngtree.com/png-clipart/20240709/original/pngtree-casual-man-flat-design-avatar-profile-picture-vector-png-image_15526568.png" alt="Фото профиля" class="profile-pic" style="width: 150px; height: 150px;">
+    </div>
+        <h1>Добро пожаловать, {{ current_user.username }}!</h1>
+        <p>панель управления</p>
 
-<h2>Информация:</h2>
-<ul>
-    <li><strong>Имя пользователя:</strong> {{ current_user.username }}</li>
-    <li><strong>Email:</strong> {{ current_user.email }}</li>
-    <li><strong>Роль:</strong> {{ current_user.role }}</li>
-</ul>
+        <h2>Информация:</h2>
+        <ul>
+            <li><strong>Имя пользователя:</strong> {{ current_user.username }}</li>
+            <li><strong>Email:</strong> {{ current_user.email }}</li>
+            <li><strong>Роль:</strong> {{ current_user.role }}</li>
+        </ul>
+</div>
 {% endblock %}
