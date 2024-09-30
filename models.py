@@ -1,8 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import Flask
+from flask import Flask, current_app
 from flask_login import UserMixin
 from datetime import datetime
+from flask_migrate import Migrate
 
 
 app = Flask(__name__)
@@ -11,6 +12,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '00cb48ff0bb190c58724e6b3834ced90'
 
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -36,9 +38,21 @@ class User(UserMixin, db.Model):
     def get_id(self):
         return str(self.id)
 
-class Course(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False, unique=True)
-    email = db.Column(db.String(120), nullable=False, unique=True)
-    password_hash = db.Column(db.String(128), nullable=False)
-    role = db.Column(db.String(20), nullable=False)
+class Manager(User):
+    __tablename__ = 'managers'
+    __mapper_args__ = {'polymorphic_identity': 'manager'}
+    
+    birth_date = db.Column(db.DateTime, nullable=True)
+    phone = db.Column(db.String(15), nullable=True)
+    address = db.Column(db.String(255), nullable=True)
+    main_office = db.Column(db.String(255), nullable=True)
+    additional_offices = db.Column(db.String(255), nullable=True)
+
+    def __init__(self, username, email, password, role, birth_date=None, phone=None, address=None, main_office=None, additional_offices=None):
+        super().__init__(username, email, password, role)
+        self.birth_date = birth_date
+        self.phone = phone
+        self.address = address
+        self.main_office = main_office
+        self.additional_offices = additional_offices
+

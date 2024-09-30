@@ -38,7 +38,7 @@ def login():
 @login_required
 def manager_dashboard():
     if current_user.role == 'manager':
-        return render_template('manager_dashboard.html', username=current_user.username)
+        return render_template('manager_dashboard.html',  manager=current_user)
     else:
         return redirect(url_for('login'))
     
@@ -118,3 +118,4 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
         app.run(debug=True, threaded=True)
+    
