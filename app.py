@@ -81,6 +81,16 @@ def manage_schedaule():
     else:
         return redirect(url_for('login'))   
     
+@app.route('/get_events')
+def get_events():
+    events = []
+    events.append({
+        "title": "programming",
+        "start": "2024-09-25",
+        "end": "2024-09-25"
+    })
+    return jsonify(events)
+
 @app.route('/teacher')
 @login_required
 def teacher_dashboard():
