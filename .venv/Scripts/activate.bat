@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=c:\Users\506_3\Desktop\crm system\crm\.venv
+set VIRTUAL_ENV=c:\Users\2022\Desktop\crm\.venv
 
 if not defined PROMPT set PROMPT=$P$G
 
