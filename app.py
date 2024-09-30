@@ -11,6 +11,7 @@ def load_user(user_id):
 
 @app.route('/')
 def index():
+
     return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -37,7 +38,7 @@ def login():
 @login_required
 def manager_dashboard():
     if current_user.role == 'manager':
-        return render_template('manager_templates\manager_dashboard.html', username=current_user.username)
+        return render_template('manager_dashboard.html', username=current_user.username)
     else:
         return redirect(url_for('login'))
     
