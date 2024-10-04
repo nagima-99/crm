@@ -1,7 +1,6 @@
-**CRM (Customer Relationship Management)**
+# CRM (Customer Relationship Management)
 
 
-**Учетные данные**
-*Администратор*
-E-mail: administrator@gmail.com
-Пароль: 12345
+### Учетные данные администратора
+- **E-mail:** administrator@gmail.com
+- **Пароль:** 12345
