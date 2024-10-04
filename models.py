@@ -11,6 +11,23 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '00cb48ff0bb190c58724e6b3834ced90'
 
+
+'''
+для загрузки переменных окружения из файла .env (временно закомментирован)
+
+import os
+from dotenv import load_dotenv # библиотека для работы с переменными окружения
+
+# Загрузка переменных из .env файла
+load_dotenv()
+app = Flask(__name__)
+
+# переменные окружения
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+'''
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
