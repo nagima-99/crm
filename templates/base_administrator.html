@@ -2,19 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/base_manager.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/manager_dasboard.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/base_administrator.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/administrator_dasboard.css') }}">
+    <title>{% block title %}CRM{% endblock %}</title>
 </head>
 <body>
     <header>
-        <h1>Добро пожаловать в CRM</h1>
+        <h1>VIVACRM</h1>
     </header>
 
     <div class="container">
         <aside>
-            <h2>Меню</h2>
             <ul>
-                <li><a href="{{ url_for('manager_dashboard') }}">Профиль</a></li>
+                <li><a href="{{ url_for('administrator_dashboard', id=administrator.id) }}">Профиль</a></li>
                 <li><a href="{{ url_for('manage_courses') }}">Управление курсами</a></li>
                 <li><a href="{{ url_for('manage_groups') }}">Управление группами</a></li>
                 <li><a href="{{ url_for('manage_students') }}">Управление студентами</a></li>
@@ -30,7 +31,7 @@
     </div>
 
     <footer>
-        <p>&copy; CRM</p>
+        <p>&copy; CRM 2024</p>
     </footer>
 </body>
 </html>

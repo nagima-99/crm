@@ -15,12 +15,17 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 class User(UserMixin, db.Model):
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False, unique=True)
     email = db.Column(db.String(120), nullable=False, unique=True)
     password_hash = db.Column(db.String(128), nullable=False)
     role = db.Column(db.String(20), nullable=False)
     registration_date = db.Column(db.DateTime, default=datetime.now())
+    __mapper_args__ = {
+        'polymorphic_identity': 'user',  # базовый класс
+        'polymorphic_on': role            # поле, по которому SQLAlchemy будет различать типы пользователей
+    }
 
     def __init__(self, username, email, password, role):
         self.username = username
@@ -35,24 +40,19 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def get_id(self):
-        return str(self.id)
 
-class Manager(User):
-    __tablename__ = 'managers'
-    __mapper_args__ = {'polymorphic_identity': 'manager'}
+class Administrator(User):
+    __tablename__ = 'administrators'
+    id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+
     
-    birth_date = db.Column(db.DateTime, nullable=True)
+    birth_date = db.Column(db.Date)
     phone = db.Column(db.String(15), nullable=True)
     address = db.Column(db.String(255), nullable=True)
     main_office = db.Column(db.String(255), nullable=True)
     additional_offices = db.Column(db.String(255), nullable=True)
 
-    def __init__(self, username, email, password, role, birth_date=None, phone=None, address=None, main_office=None, additional_offices=None):
-        super().__init__(username, email, password, role)
-        self.birth_date = birth_date
-        self.phone = phone
-        self.address = address
-        self.main_office = main_office
-        self.additional_offices = additional_offices
+    __mapper_args__ = {
+        'polymorphic_identity': 'Администратор',
+    }
 

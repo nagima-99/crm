@@ -1,0 +1,64 @@
+body {
+    background-color: #f0f0f5;
+}
+.profile-container {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    max-width: 1000px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+h3 {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.profile-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.edit-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.edit-btn:hover {
+    color: #007BFF;
+}
+
+.edit-form {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.edit-form input {
+    margin-right: 10px;
+    padding: 5px;
+}
+
+.edit-form button {
+    padding: 5px 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.edit-form button[type="button"] {
+    background-color: #ccc;
+}
+
+.edit-form button:hover {
+    opacity: 0.9;
+}

@@ -1,0 +1,90 @@
+{% extends 'base_administrator.html' %}
+
+{% block title %}Профиль Администратора{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h2>{{ administrator.username }}</h2>
+
+    <div class="section">
+        <h3>Общая информация</h3>
+        <div class="profile-item">
+            <span>Email: {{ administrator.email }}</span>
+            <button class="edit-btn" onclick="document.getElementById('email-form').style.display='block'">✏️</button>
+        </div>
+        <div id="email-form" class="edit-form" style="display:none;">
+            <form method="POST" action="{{ url_for('administrator_dashboard', id=administrator.id) }}">
+                <input type="email" name="email" value="{{ administrator.email }}" required>
+                <button type="submit">Сохранить</button>
+                <button type="button" onclick="document.getElementById('email-form').style.display='none'">Отмена</button>
+            </form>
+        </div>
+
+        <div class="profile-item">
+            <span>Телефон: {{ administrator.phone }}</span>
+            <button class="edit-btn" onclick="document.getElementById('phone-form').style.display='block'">✏️</button>
+        </div>
+        <div id="phone-form" class="edit-form" style="display:none;">
+            <form method="POST" action="{{ url_for('administrator_dashboard', id=administrator.id) }}">
+                <input type="text" name="phone" value="{{ administrator.phone }}" required>
+                <button type="submit">Сохранить</button>
+                <button type="button" onclick="document.getElementById('phone-form').style.display='none'">Отмена</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Офисы</h3>
+        <div class="profile-item">
+            <span>Основной офис: {{ administrator.main_office }}</span>
+            <button class="edit-btn" onclick="document.getElementById('main-office-form').style.display='block'">✏️</button>
+        </div>
+        <div id="main-office-form" class="edit-form" style="display:none;">
+            <form method="POST" action="{{ url_for('administrator_dashboard', id=administrator.id) }}">
+                <input type="text" name="main_office" value="{{ administrator.main_office }}" required>
+                <button type="submit">Сохранить</button>
+                <button type="button" onclick="document.getElementById('main-office-form').style.display='none'">Отмена</button>
+            </form>
+        </div>
+
+        <div class="profile-item">
+            <span>Дополнительные офисы: {{ administrator.additional_offices }}</span>
+            <button class="edit-btn" onclick="document.getElementById('additional-offices-form').style.display='block'">✏️</button>
+        </div>
+        <div id="additional-offices-form" class="edit-form" style="display:none;">
+            <form method="POST" action="{{ url_for('administrator_dashboard', id=administrator.id) }}">
+                <input type="text" name="additional_offices" value="{{ administrator.additional_offices }}" required>
+                <button type="submit">Сохранить</button>
+                <button type="button" onclick="document.getElementById('additional-offices-form').style.display='none'">Отмена</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Личная информация</h3>
+        <div class="profile-item">
+            <span>Адрес: {{ administrator.address }}</span>
+            <button class="edit-btn" onclick="document.getElementById('address-form').style.display='block'">✏️</button>
+        </div>
+        <div id="address-form" class="edit-form" style="display:none;">
+            <form method="POST" action="{{ url_for('administrator_dashboard', id=administrator.id) }}">
+                <input type="text" name="address" value="{{ administrator.address }}" required>
+                <button type="submit">Сохранить</button>
+                <button type="button" onclick="document.getElementById('address-form').style.display='none'">Отмена</button>
+            </form>
+        </div>
+
+        <div class="profile-item">
+            <span>Дата рождения: {{ administrator.birth_date }}</span>
+            <button class="edit-btn" onclick="document.getElementById('birthdate-form').style.display='block'">✏️</button>
+        </div>
+        <div id="birthdate-form" class="edit-form" style="display:none;">
+            <form method="POST" action="{{ url_for('administrator_dashboard', id=administrator.id) }}">
+                <input type="date" name="birth_date" value="{{ administrator.birth_date }}" required>
+                <button type="submit">Сохранить</button>
+                <button type="button" onclick="document.getElementById('birthdate-form').style.display='none'">Отмена</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
