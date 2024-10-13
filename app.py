@@ -1,8 +1,10 @@
 from flask import render_template, request, redirect, url_for, flash, jsonify
-from models import app, db, User, Administrator
+from models import app, db, User, Administrator, Student
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
 from datetime import datetime
 from flask_migrate import Migrate
+from forms import StudentForm
+from werkzeug.security import generate_password_hash
 
 migrate = Migrate(app, db)
 login_manager = LoginManager(app)
@@ -54,7 +56,7 @@ def administrator_dashboard(id):
     age = calculate_age(administrator.birth_date)
 
     if request.method == 'POST':
-        # Обработка обновления данных администратора
+
         if 'username' in request.form:
             administrator.username = request.form['username']
         if 'email' in request.form:
@@ -69,7 +71,7 @@ def administrator_dashboard(id):
             administrator.additional_offices = request.form['additional_offices']
 
         db.session.commit()
-        flash('Данные успешно обновлены!')  # Успешное сообщение
+        flash('Данные успешно обновлены!')
         return redirect(url_for('administrator_dashboard', id=administrator.id))
 
     administrator_data = {
@@ -130,6 +132,44 @@ def manage_schedaule():
     else:
         return redirect(url_for('login'))   
     
+@app.route('/create_student', methods=['GET', 'POST'])
+@login_required
+def create_student():
+    if current_user.role != 'Администратор':
+        return redirect(url_for('index'))
+
+    administrator = Administrator.query.filter_by(id=current_user.id).first()
+
+    form = StudentForm()
+
+    if form.validate_on_submit():
+        existing_student = Student.query.filter_by(email=form.email.data).first()
+        if existing_student:
+            flash('Этот email уже зарегистрирован. Пожалуйста, используйте другой.', 'error')
+            return render_template('create_student.html', form=form, administrator=administrator)
+
+        new_student = Student(
+            username=form.username.data,
+            email=form.email.data,
+            password=generate_password_hash(form.password.data),
+            birth_date=form.birth_date.data,
+            phone=form.phone.data,
+            address=form.address.data,
+            client_name=form.client_name.data,
+            client_relation=form.client_relation.data,
+            client_phone=form.client_phone.data,
+            client_workplace=form.client_workplace.data,
+            client_position=form.client_position.data
+        )
+        db.session.add(new_student)
+        db.session.commit()
+        flash('Студент успешно добавлен!', 'success')
+        return redirect(url_for('create_student'))
+    else:
+        print(form.errors)
+
+    return render_template('create_student.html', form=form, administrator=administrator)
+
 
 @app.route('/teacher')
 @login_required

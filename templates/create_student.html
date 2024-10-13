@@ -1,0 +1,123 @@
+{% extends 'base_administrator.html' %}
+
+{% block title %}Создать ученика{% endblock %}
+
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+<h1 class="content-title">Создать ученика</h1>
+<div class="form-container">
+    <form method="POST" action="{{ url_for('create_student') }}">
+        {{ form.hidden_tag() }}
+        
+        <div class="form-group">
+            <label for="username">{{ form.username.label.text|replace("Username", "Имя пользователя") }}</label>
+            {{ form.username(class="form-control") }}
+            {% for error in form.username.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            <label for="email">{{ form.email.label.text|replace("Email", "Электронная почта") }}</label>
+            {{ form.email(class="form-control") }}
+            {% for error in form.email.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            <label for="password">{{ form.password.label.text|replace("Password", "Пароль") }}</label>
+            {{ form.password(class="form-control") }}
+            {% for error in form.password.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            <label for="confirm_password">{{ form.confirm_password.label.text|replace("Confirm Password", "Подтверждение пароля") }}</label>
+            {{ form.confirm_password(class="form-control") }}
+            {% for error in form.confirm_password.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            <label for="birth_date">{{ form.birth_date.label.text|replace("Birth Date", "Дата рождения") }}</label>
+            {{ form.birth_date(class="form-control") }}
+            {% for error in form.birth_date.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            <label for="phone">{{ form.phone.label.text|replace("Phone", "Телефон") }}</label>
+            {{ form.phone(class="form-control") }}
+            {% for error in form.phone.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            <label for="address">{{ form.address.label.text|replace("Address", "Адрес") }}</label>
+            {{ form.address(class="form-control") }}
+            {% for error in form.address.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <h3>Информация о заказчике (родителе или опекуне)</h3>
+        
+        <div class="form-group">
+            <label for="client_name">{{ form.client_name.label.text|replace("Client Name", "Имя заказчика") }}</label>
+            {{ form.client_name(class="form-control") }}
+            {% for error in form.client_name.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            <label for="client_relation">{{ form.client_relation.label.text|replace("Client Relation", "Отношение к ученику") }}</label>
+            {{ form.client_relation(class="form-control") }}
+            {% for error in form.client_relation.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            <label for="client_phone">{{ form.client_phone.label.text|replace("Client Phone", "Телефон заказчика") }}</label>
+            {{ form.client_phone(class="form-control") }}
+            {% for error in form.client_phone.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            <label for="client_workplace">{{ form.client_workplace.label.text|replace("Client Workplace", "Место работы заказчика") }}</label>
+            {{ form.client_workplace(class="form-control") }}
+            {% for error in form.client_workplace.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            <label for="client_position">{{ form.client_position.label.text|replace("Client Position", "Должность заказчика") }}</label>
+            {{ form.client_position(class="form-control") }}
+            {% for error in form.client_position.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Создать ученика</button>
+    </form>
+</div>
+{% endblock %}

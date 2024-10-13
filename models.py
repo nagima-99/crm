@@ -73,3 +73,39 @@ class Administrator(User):
         'polymorphic_identity': 'Администратор',
     }
 
+    def __init__(self, username, email, password, birth_date=None, phone=None, address=None, main_office=None, additional_offices=None):
+        super().__init__(username, email, password, role='Администратор')
+        self.birth_date = birth_date
+        self.phone = phone
+        self.address = address
+        self.main_office = main_office
+        self.additional_offices = additional_offices
+
+class Student(User):
+    __tablename__ = 'students'
+    id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    
+    birth_date = db.Column(db.Date, nullable=True)
+    phone = db.Column(db.String(20), nullable=True)
+    address = db.Column(db.String(255), nullable=True)
+    
+    client_name = db.Column(db.String(255), nullable=True)
+    client_relation = db.Column(db.String(100), nullable=True)
+    client_phone = db.Column(db.String(20), nullable=True)
+    client_workplace = db.Column(db.String(255), nullable=True)
+    client_position = db.Column(db.String(100), nullable=True)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'student',
+    }
+
+    def __init__(self, username, email, password, birth_date=None, phone=None, address=None, client_name=None, client_relation=None, client_phone=None, client_workplace=None, client_position=None):
+        super().__init__(username, email, password, role='student')
+        self.birth_date = birth_date
+        self.phone = phone
+        self.address = address
+        self.client_name = client_name
+        self.client_relation = client_relation
+        self.client_phone = client_phone
+        self.client_workplace = client_workplace
+        self.client_position = client_position
